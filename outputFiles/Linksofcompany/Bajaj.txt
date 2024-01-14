@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Bajaj/
+Models URLs:
+{"Bajaj Qute (RE60)": {"full_url": "https://www.cardekho.com/bajaj/re60"}}

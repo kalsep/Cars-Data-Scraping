@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Force/
+Models URLs:
+{"Force Gurkha": {"full_url": "https://www.cardekho.com/carmodels/Force/Force_Gurkha"}}

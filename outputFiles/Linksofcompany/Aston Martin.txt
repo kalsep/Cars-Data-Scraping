@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Aston/Martin
+Models URLs:
+{"Aston Martin DB12": {"full_url": "https://www.cardekho.com/aston-martin/db12"}, "Aston Martin DBX": {"full_url": "https://www.cardekho.com/aston-martin/dbx"}, "Aston Martin Vantage": {"full_url": "https://www.cardekho.com/carmodels/Aston_Martin/Aston_Martin_Vantage"}}

@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Jeep/
+Models URLs:
+{"Jeep Compass": {"full_url": "https://www.cardekho.com/jeep/compass"}, "Jeep Wrangler": {"full_url": "https://www.cardekho.com/jeep/wrangler"}, "Jeep Meridian": {"full_url": "https://www.cardekho.com/jeep/meridian"}, "Jeep Grand Cherokee": {"full_url": "https://www.cardekho.com/jeep/grand-cherokee"}}

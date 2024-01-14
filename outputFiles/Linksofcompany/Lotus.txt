@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Lotus/
+Models URLs:
+{"Lotus Eletre": {"full_url": "https://www.cardekho.com/lotus/eletre"}}

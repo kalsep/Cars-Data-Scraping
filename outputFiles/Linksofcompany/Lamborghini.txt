@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Lamborghini/
+Models URLs:
+{"Lamborghini Urus": {"full_url": "https://www.cardekho.com/lamborghini/urus"}, "Lamborghini Revuelto": {"full_url": "https://www.cardekho.com/lamborghini/revuelto"}, "Lamborghini Huracan EVO": {"full_url": "https://www.cardekho.com/lamborghini/huracan-evo"}}

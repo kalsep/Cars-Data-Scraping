@@ -1,0 +1,3 @@
+Brand URL: https://www.cardekho.com/Kia/
+Models URLs:
+{"Kia Seltos": {"full_url": "https://www.cardekho.com/kia/seltos"}, "Kia Sonet": {"full_url": "https://www.cardekho.com/kia/sonet"}, "Kia EV6": {"full_url": "https://www.cardekho.com/kia/ev6"}, "Kia Carens": {"full_url": "https://www.cardekho.com/kia/carens"}}
