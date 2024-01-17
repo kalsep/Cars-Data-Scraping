@@ -1,8 +1,6 @@
 from configurations import *
 from functions import *
 
-
-
 for brand in all_brands:
     companyurl = base_url + ("/cars/" + brand if brand != "maruti-suzuki-cars" else brand)
     # print(companyurl)
