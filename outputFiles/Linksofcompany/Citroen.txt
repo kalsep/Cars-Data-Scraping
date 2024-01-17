@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Citroen/
-Models URLs:
-{"Citroen C3": {"full_url": "https://www.cardekho.com/citroen/c3"}, "Citroen C3 Aircross": {"full_url": "https://www.cardekho.com/citroen/c3-aircross"}, "Citroen eC3": {"full_url": "https://www.cardekho.com/citroen/ec3"}, "Citroen C5 Aircross": {"full_url": "https://www.cardekho.com/citroen/c5-aircross"}}

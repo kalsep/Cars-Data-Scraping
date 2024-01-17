@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Renault/
-Models URLs:
-{"Renault KWID": {"full_url": "https://www.cardekho.com/carmodels/Renault/Renault_KWID"}, "Renault Triber": {"full_url": "https://www.cardekho.com/renault/triber"}, "Renault Kiger": {"full_url": "https://www.cardekho.com/renault/kiger"}}

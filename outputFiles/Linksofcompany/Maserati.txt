@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Maserati/
-Models URLs:
-{"Maserati Levante": {"full_url": "https://www.cardekho.com/maserati/levante"}, "Maserati Ghibli": {"full_url": "https://www.cardekho.com/maserati/ghibli"}, "Maserati GranTurismo": {"full_url": "https://www.cardekho.com/carmodels/Maserati/Maserati_Gran_Turismo"}, "Maserati Quattroporte": {"full_url": "https://www.cardekho.com/carmodels/Maserati/Maserati_Quattroporte"}, "Maserati GranCabrio": {"full_url": "https://www.cardekho.com/carmodels/Maserati/Maserati_Gran_Cabrio"}}

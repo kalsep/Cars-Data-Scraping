@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Isuzu/
-Models URLs:
-{"Isuzu D-Max": {"full_url": "https://www.cardekho.com/isuzu/d-max"}, "Isuzu V-Cross": {"full_url": "https://www.cardekho.com/isuzu/v-cross"}, "Isuzu S-CAB": {"full_url": "https://www.cardekho.com/isuzu/s-cab"}, "Isuzu MU-X": {"full_url": "https://www.cardekho.com/isuzu/mu-x"}, "Isuzu S-CAB Z": {"full_url": "https://www.cardekho.com/isuzu/s-cab-z"}, "Isuzu Hi-Lander": {"full_url": "https://www.cardekho.com/isuzu/hi-lander"}}

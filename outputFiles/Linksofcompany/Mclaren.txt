@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Mclaren/
-Models URLs:
-{"Mclaren GT": {"full_url": "https://www.cardekho.com/mclaren/gt"}, "Mclaren 750S": {"full_url": "https://www.cardekho.com/mclaren/750s"}}

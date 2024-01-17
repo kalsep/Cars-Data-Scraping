@@ -1,6 +1,7 @@
 
-from functions import *
-from database_conn import *
+from finalDataProcessing.functions import *
+from finalDataProcessing.database_conn import *
+
 def push_brand_data():
     # Connect to MySQL
     try:
@@ -69,18 +70,11 @@ def push_brand_models():
                           
 def push_brand_variant():
     try:
-        # push_brand_variant()
-        all_data = get_trash(all_brands)
         connection, cursor = get_database_connection()
         cursor.execute('select brand_models_id,brand_model_name from brand_models;')
         model_list = cursor.fetchall()
         for model in model_list:
             print(model, end='\n')
-            
-            
-        
-        
     except Exception as e:
         print(e)
-# push_brand_variant()
-get_trash(all_brands)
+push_brand_variant()

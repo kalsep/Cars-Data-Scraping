@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Bentley/
-Models URLs:
-{"Bentley Continental": {"full_url": "https://www.cardekho.com/carmodels/Bentley/Bentley_Continental"}, "Bentley Flying Spur": {"full_url": "https://www.cardekho.com/carmodels/Bentley/Bentley_Flying_Spur"}, "Bentley Bentayga": {"full_url": "https://www.cardekho.com/bentley/bentayga"}}

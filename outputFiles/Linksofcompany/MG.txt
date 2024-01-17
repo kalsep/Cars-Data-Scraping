@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/MG/
-Models URLs:
-{"MG Hector": {"full_url": "https://www.cardekho.com/mg/hector"}, "MG Astor": {"full_url": "https://www.cardekho.com/mg/astor"}, "MG Gloster": {"full_url": "https://www.cardekho.com/mg/gloster"}, "MG Comet EV": {"full_url": "https://www.cardekho.com/mg/comet-ev"}, "MG Hector Plus": {"full_url": "https://www.cardekho.com/mg/hector-plus"}, "MG ZS EV": {"full_url": "https://www.cardekho.com/mg/zs-ev"}}

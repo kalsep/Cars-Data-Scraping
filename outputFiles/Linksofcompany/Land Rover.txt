@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Land/Rover
-Models URLs:
-{"Land Rover Defender": {"full_url": "https://www.cardekho.com/land-rover/defender"}, "Land Rover Range Rover": {"full_url": "https://www.cardekho.com/land-rover/range-rover"}, "Land Rover Range Rover Velar": {"full_url": "https://www.cardekho.com/land-rover/range-rover-velar"}, "Land Rover Range Rover Sport": {"full_url": "https://www.cardekho.com/land-rover/range-rover-sport"}, "Land Rover Range Rover Evoque": {"full_url": "https://www.cardekho.com/land-rover/range-rover-evoque"}, "Land Rover Discovery": {"full_url": "https://www.cardekho.com/land-rover/discovery"}, "Land Rover Discovery Sport": {"full_url": "https://www.cardekho.com/carmodels/Land_Rover/Land_Rover_Discovery_Sport"}}

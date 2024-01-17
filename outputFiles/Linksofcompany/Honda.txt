@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Honda/
-Models URLs:
-{"Honda City": {"full_url": "https://www.cardekho.com/honda/city"}, "Honda Amaze": {"full_url": "https://www.cardekho.com/honda/amaze"}, "Honda City Hybrid": {"full_url": "https://www.cardekho.com/honda/city-hybrid"}, "Honda Elevate": {"full_url": "https://www.cardekho.com/honda/elevate"}}

@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Mini/
-Models URLs:
-{"Mini Cooper Countryman": {"full_url": "https://www.cardekho.com/mini/cooper-countryman"}, "Mini Cooper 3 DOOR": {"full_url": "https://www.cardekho.com/carmodels/Mini/Mini_3_DOOR"}, "Mini Cooper SE": {"full_url": "https://www.cardekho.com/mini/cooper-se"}}

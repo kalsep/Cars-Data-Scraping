@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Jaguar/
-Models URLs:
-{"Jaguar F-Pace": {"full_url": "https://www.cardekho.com/jaguar/f-pace"}, "Jaguar F-TYPE": {"full_url": "https://www.cardekho.com/jaguar/f-type"}, "Jaguar I-Pace": {"full_url": "https://www.cardekho.com/jaguar/i-pace"}}

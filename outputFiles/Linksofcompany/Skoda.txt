@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Skoda/
-Models URLs:
-{"Skoda Kushaq": {"full_url": "https://www.cardekho.com/skoda/kushaq"}, "Skoda Slavia": {"full_url": "https://www.cardekho.com/carmodels/Skoda/Skoda_Slavia"}, "Skoda Kodiaq": {"full_url": "https://www.cardekho.com/skoda/kodiaq"}}

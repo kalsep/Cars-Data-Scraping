@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Ferrari/
-Models URLs:
-{"Ferrari Roma": {"full_url": "https://www.cardekho.com/ferrari/roma"}, "Ferrari 296 GTB": {"full_url": "https://www.cardekho.com/ferrari/296-gtb"}, "Ferrari F8 Tributo": {"full_url": "https://www.cardekho.com/ferrari/f8-tributo"}, "Ferrari SF90 Stradale": {"full_url": "https://www.cardekho.com/ferrari/sf90-stradale"}, "Ferrari 812": {"full_url": "https://www.cardekho.com/ferrari/812"}}

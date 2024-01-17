@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/BYD/
-Models URLs:
-{"BYD E6": {"full_url": "https://www.cardekho.com/byd/e6"}, "BYD Atto 3": {"full_url": "https://www.cardekho.com/byd/atto-3"}}

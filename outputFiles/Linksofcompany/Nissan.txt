@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Nissan/
-Models URLs:
-{"Nissan Magnite": {"full_url": "https://www.cardekho.com/nissan/magnite"}}

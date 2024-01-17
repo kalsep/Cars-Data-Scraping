@@ -1,3 +1,0 @@
-Brand URL: https://www.cardekho.com/Lexus/
-Models URLs:
-{"Lexus ES": {"full_url": "https://www.cardekho.com/lexus/es"}, "Lexus LS": {"full_url": "https://www.cardekho.com/lexus/ls"}, "Lexus LC 500h": {"full_url": "https://www.cardekho.com/lexus/lc-500h"}, "Lexus NX": {"full_url": "https://www.cardekho.com/lexus/nx"}, "Lexus RX": {"full_url": "https://www.cardekho.com/lexus/rx"}, "Lexus LX": {"full_url": "https://www.cardekho.com/lexus/lx"}}
