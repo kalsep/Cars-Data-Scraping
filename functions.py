@@ -1,4 +1,4 @@
-from finalDataProcessing.configurations import *
+from configurations import *
 
 #get the soup data
 def get_soup(url='https://www.cardekho.com'):
@@ -28,7 +28,7 @@ def get_company_url(url):
     return brand_directctory
 
 #get All Models list from page of company
-def get_model_url(title):
+def get_company_model_url(title):
     # Extracting company name and models
     each_model = title.split(" ")
     company_name = each_model[0]
@@ -37,15 +37,15 @@ def get_model_url(title):
     return urljoin(base_url, path)
  
 def get_models_url(url): #https://www.cardekho.com/maruti-suzuki-cars
-    soup = get_soup(url)
-    pre_model = soup.find('div', class_="gsc_col-md-8 gsc_col-lg-9 gsc_col-sm-12 gsc_col-xs-12 BrandDesc")
-    model_list = pre_model.find('ul', class_="modelList")
-    all_models = model_list.find_all('li')
-    
-    result_dict = {}
-    
-    for i in all_models:
-        try:
+    try:
+        soup = get_soup(url)
+        pre_model = soup.find('div', class_="gsc_col-md-8 gsc_col-lg-9 gsc_col-sm-12 gsc_col-xs-12 BrandDesc")
+        model_list = pre_model.find('ul', class_="modelList")
+        all_models = model_list.find_all('li')
+        
+        
+        result_dict = {}
+        for i in all_models:
             target_tag  = i.find('div', class_='gsc_col-sm-12 gsc_col-xs-12 gsc_col-md-8 listView holder posS')
             # print(list1)
             title = target_tag.find('h3').find('a').text
@@ -55,11 +55,10 @@ def get_models_url(url): #https://www.cardekho.com/maruti-suzuki-cars
             
             #Storing in the result dictionary
             result_dict[title] = full_url
-            
-        except Exception as e:
-            print(e)
-    # print("CHecking Results: ",result_dict)
-    return result_dict
+        # print("CHecking Results: ",result_dict)
+        return result_dict
+    except Exception as e:
+        return None
 
 
 def get_modelvariant_link(model_page_url):
@@ -84,10 +83,7 @@ def get_modelvariant_link(model_page_url):
                 link = urljoin(base_url,href)
 
                 # Creating a dictionary for each row
-                row_data = {
-                    'Variant': title,
-                    'link': link,
-                }
+                row_data = {title:link}
                 extracted_data.append(row_data)
         else:
             raise ValueError("Table not found.")
@@ -96,7 +92,7 @@ def get_modelvariant_link(model_page_url):
         return extracted_data
 
     except Exception as e:
-        print(f"Error: {e}")
+        # print(f"Error: {e}")
         return None
 
 #this function return price breakup for delhi city by default
@@ -138,7 +134,7 @@ def get_on_road_price_delhi(variant_page_url):
             return (on_road_price_info)
 
     except Exception as e:
-        print(f"Error: {e}")
+        # print(f"Error: {e}")
         return None
 
 #Get each variant info
@@ -178,5 +174,5 @@ def get_each_car_info(variant_url):
         return {'Key Specifications': specs, 'Key Features': features}
 
     except Exception as e:
-        print(f"Error: {e}")
+        # print(f"Error: {e}")
         return None
