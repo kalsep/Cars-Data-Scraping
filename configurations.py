@@ -15,7 +15,7 @@ base_url = "https://www.cardekho.com"
 
 base_path = os.getcwd()
 
-all_brands = ['maruti-suzuki-cars', 'Tata', 'Kia', 'Toyota', 'Hyundai', 'Mahindra', 'Honda', 'MG', 
+all_brands = ['maruti-suzuki-cars','Maruti Suzuki','Maruti', 'Tata', 'Kia', 'Toyota', 'Hyundai', 'Mahindra', 'Honda', 'MG', 
               'Skoda', 'Jeep', 'Renault', 'Nissan', 'Volkswagen', 'Citroen', 'Aston Martin', 
               'Audi', 'Bajaj', 'Bentley', 'BMW', 'BYD', 'Ferrari', 'Force', 'Isuzu', 'Jaguar', 
               'Lamborghini', 'Land Rover', 'Lexus', 'Lotus', 'Maserati', 'Mclaren', 'Mercedes-Benz', 
