@@ -1,17 +1,17 @@
 from configurations import *
-from functions import *
-# Creating an empty DataFrame
-final_data = pd.DataFrame(columns=['brand', 'model', 'variant','variant_link'])
+from scraping_functions import *
+from database_functions import *
 
-for index,brand in enumerate(all_brands):
-    data = pd.DataFrame(columns=['brand','model','variant'])
-    brand_url = get_company_model_url(brand)
-    all_models = get_models_url(brand_url)
-    if all_models!= None:
-        for model, model_link in all_models.items():
-            all_variants = get_modelvariant_link(model_link)
-            for varinat in all_variants:
-                for variant_name, variant_link in varinat.items():
-                    data = data._append({'brand': brand, 'model': model, 'variant': variant_name,'variant_link':variant_link}, ignore_index=True)
-    final_data = pd.concat([final_data, data], ignore_index=True)
-final_data.to_csv('all_models_data.csv')
+
+start_url = "https://www.cardekho.com/newcars"
+# brand_url_directctory = get_company_url(start_url)
+# # insert_brand_from_dict(brand_url_directctory)
+# # # print(brand_url_directctory)
+
+# for brand, brand_url in brand_url_directctory.items():
+# # for brand, brand_url in islice(brand_url_directctory.items(),16):
+#     brand_model_directory = scrap_model_urls(brand_url)
+    insert_brand_model(brand_model_directory)
+
+# get_brand_models_url()
+print(get_brand_models_url())

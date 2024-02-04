@@ -7,7 +7,9 @@ def get_soup(url='https://www.cardekho.com'):
     soup = BeautifulSoup(page.content, 'lxml')
     return soup
 
-def get_company_url(url):
+
+#completed
+def scrap_brand_directory(url):
     soup = get_soup(url)
     main_section = soup.find('main', class_='gsc_container newcarsLanding')
     brand_section = main_section.find_all('div', class_='contentHold gsc_row')
@@ -27,41 +29,32 @@ def get_company_url(url):
         
     return brand_directctory
 
-#get All Models list from page of company
-def get_company_model_url(title):
-    # Extracting company name and models
-    each_model = title.split(" ")
-    company_name = each_model[0]
-    models = each_model[1:]
-    path = f"{company_name}/{'-'.join(models)}"
-    return urljoin(base_url, path)
- 
-def get_models_url(url): #https://www.cardekho.com/maruti-suzuki-cars
+
+ #completed
+def scrap_model_urls(url): #https://www.cardekho.com/maruti-suzuki-cars
     try:
+        # print(f"inside get models for {url}")
+        brand_model_directory = {}
         soup = get_soup(url)
-        pre_model = soup.find('div', class_="gsc_col-md-8 gsc_col-lg-9 gsc_col-sm-12 gsc_col-xs-12 BrandDesc")
-        model_list = pre_model.find('ul', class_="modelList")
-        all_models = model_list.find_all('li')
-        
-        
-        result_dict = {}
-        for i in all_models:
-            target_tag  = i.find('div', class_='gsc_col-sm-12 gsc_col-xs-12 gsc_col-md-8 listView holder posS')
-            # print(list1)
-            title = target_tag.find('h3').find('a').text
-            
-            link_href = target_tag.find('h3').find('a')['href']
-            full_url = urljoin(base_url, link_href)
-            
-            #Storing in the result dictionary
-            result_dict[title] = full_url
-        # print("CHecking Results: ",result_dict)
-        return result_dict
+        main = soup.find('div',id='main')
+        gsc_container = main.find('main',class_='gsc_container Brandpage')
+        model_list = gsc_container.find('ul',class_='modelList')
+        ul_list = model_list.findAll("li")
+        # print(len(ul_list))
+        for index, eachmodel in enumerate(ul_list):
+            # Extract name and URL
+            try:
+                model_name = eachmodel.find('h3').find('a').text.strip()
+                model_url = eachmodel.find('h3').find('a')['href']
+                brand_model_directory[model_name] = urljoin(base_url,model_url)
+            except Exception as e:
+                print(e)
+        return brand_model_directory
     except Exception as e:
         return None
 
 
-def get_modelvariant_link(model_page_url):
+def scrap_model_variant_url(model_page_url):
     soup = get_soup(model_page_url)
     pre_model = soup.find('main', class_="gsc_container")
     table = pre_model.find('table',class_='allvariant contentHold')
@@ -96,7 +89,7 @@ def get_modelvariant_link(model_page_url):
         return None
 
 #this function return price breakup for delhi city by default
-def get_on_road_price_delhi(variant_page_url):
+def scrap_on_road_price_delhi(variant_page_url):
     try:
         # Parse the HTML content using BeautifulSoup
         soup = get_soup(variant_page_url)
@@ -137,9 +130,8 @@ def get_on_road_price_delhi(variant_page_url):
         # print(f"Error: {e}")
         return None
 
-#Get each variant info
-def get_each_car_info(variant_url):
-    soup = get_soup(variant_url)
+def scrap_key_specifications(url):
+    soup = get_soup(url)
     pre_model = soup.find('main', class_="gsc_container")
     content = pre_model.find('section',class_='specsAllLists')
     try:
@@ -148,7 +140,7 @@ def get_each_car_info(variant_url):
         features_section = content.find('div',class_="toggleAccordion specsFeaturesBlock")
 
         # Extract key specifications
-        specs = {}
+        variant_key_specifications = {}
         if specs_section:
             spec_table = specs_section.find('table', {'class': 'keyfeature'})
             if spec_table:
@@ -157,10 +149,25 @@ def get_each_car_info(variant_url):
                     if len(columns) == 2:
                         key = columns[0].text.strip()
                         value = columns[1].text.strip()
-                        specs[key] = value
+                        variant_key_specifications[key] = value
+        return variant_key_specifications
+    except Exception as e:
+        print(e)
+
+    
+
+#Get each variant info
+def scrap_key_features(variant_url):
+    soup = get_soup(variant_url)
+    pre_model = soup.find('main', class_="gsc_container")
+    content = pre_model.find('section',class_='specsAllLists')
+    try:
+        # Find the sections with key specifications and key features
+        specs_section = content.find('div', class_='featuresIocnsSec gsco_content first')
+        features_section = content.find('div',class_="toggleAccordion specsFeaturesBlock")
 
         # Extract key features
-        features = {}
+        varint_key_features = {}
         if features_section:
             feature_table = features_section.find('table', {'class': 'keyfeature'})
             if feature_table:
@@ -169,9 +176,9 @@ def get_each_car_info(variant_url):
                     if len(columns) == 2:
                         key = columns[0].text.strip()
                         value = True if 'icon-check' in columns[1].prettify() else False
-                        features[key] = value
+                        varint_key_features[key] = value
 
-        return {'Key Specifications': specs, 'Key Features': features}
+        return varint_key_features
 
     except Exception as e:
         # print(f"Error: {e}")
