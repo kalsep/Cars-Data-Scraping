@@ -89,7 +89,7 @@ def scrap_model_variant_url(model_page_url):
         return None
 
 #this function return price breakup for delhi city by default
-def scrap_on_road_price_delhi(variant_page_url):
+def scrap_on_road_price_delhi(variant_page_url)-> dict:
     try:
         # Parse the HTML content using BeautifulSoup
         soup = get_soup(variant_page_url)
@@ -121,16 +121,62 @@ def scrap_on_road_price_delhi(variant_page_url):
                                 key = key.replace(span.text.strip(), '').strip()
                         elif key.split(" ")[0] == 'On-Road':
                             key = key.replace(key, " ".join(key.split(' ')[0:2])).strip()
+                        elif key.startswith("Others"):
+                            key="Others"
+                        elif key.startswith('Optional'):
+                            key='Optional'
+                        
                         value = columns[1].text.strip()
+
+                        # Replace 'Rs.', ',', and '#' with an empty string
+                        value = value.replace('Rs.', '').replace(',', '').replace('#', '')
+                        if value.isnumeric():
+                            value = int(value)
                         on_road_price_info[key] = value
-
-            return (on_road_price_info)
-
+        return on_road_price_info
     except Exception as e:
         # print(f"Error: {e}")
         return None
 
-def scrap_key_specifications(url):
+
+def process_on_road_price(price_info):
+    processed_price_info = {}
+    for key,value in price_info.items():
+        # print(key,":",value,end="\n")
+
+        if key.startswith("Others"):
+            input_string = str(key)
+            # Define regular expression pattern to extract keys and corresponding charges
+            charge_pattern_other = r'([a-zA-Z\s]+):Rs\.(\d+(?:,\d{3})*)(?=\D|$)'
+            charge_items = re.findall(charge_pattern_other, input_string)
+
+            # Create a dictionary from the matches
+            charge_dict_ot = {charge[0].strip(): int(charge[1].replace(',', '')) for charge in charge_items}
+
+            # print(f"For Others:",charge_dict)
+            processed_price_info.update(charge_dict_ot)
+       
+        elif key.startswith('Optional'):
+            input_string = str(key)
+            # Define regular expression pattern to extract keys and corresponding charges
+            charge_pattern_optional = r'(\w+\s*\w*)\s*:\s*Rs\.(\d{1,3},?\d{3})'
+            charge_items = re.findall(charge_pattern_optional, input_string)
+
+            # Create the first dictionary
+            # op_charge_dict = {key: value for key, value in charge_items}
+
+            # Create a dictionary from the matches
+            charge_dict_op = {charge[0].strip(): int(charge[1].replace(',', '')) for charge in charge_items}
+
+            processed_price_info.update(charge_dict_op)
+
+        else:
+            # print(f"For NOT:",key)
+            processed_price_info[key]=value
+    print("processed_price_info:",processed_price_info)
+    return processed_price_info
+
+def scrap_key_specifications(url)->dict:
     soup = get_soup(url)
     pre_model = soup.find('main', class_="gsc_container")
     content = pre_model.find('section',class_='specsAllLists')
@@ -157,19 +203,18 @@ def scrap_key_specifications(url):
     
 
 #Get each variant info
-def scrap_key_features(variant_url):
+def scrap_key_features(variant_url)->dict:
     soup = get_soup(variant_url)
     pre_model = soup.find('main', class_="gsc_container")
     content = pre_model.find('section',class_='specsAllLists')
     try:
         # Find the sections with key specifications and key features
-        specs_section = content.find('div', class_='featuresIocnsSec gsco_content first')
-        features_section = content.find('div',class_="toggleAccordion specsFeaturesBlock")
+        features_section = content.find_all('div',class_="toggleAccordion specsFeaturesBlock")
 
         # Extract key features
         varint_key_features = {}
-        if features_section:
-            feature_table = features_section.find('table', {'class': 'keyfeature'})
+        if features_section[1]:
+            feature_table = features_section[1].find('table', {'class': 'keyfeature'})
             if feature_table:
                 for row in feature_table.find_all('tr'):
                     columns = row.find_all('td')
@@ -177,7 +222,6 @@ def scrap_key_features(variant_url):
                         key = columns[0].text.strip()
                         value = True if 'icon-check' in columns[1].prettify() else False
                         varint_key_features[key] = value
-
         return varint_key_features
 
     except Exception as e:
