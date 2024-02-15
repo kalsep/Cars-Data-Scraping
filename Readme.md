@@ -1,7 +1,5 @@
 ---
-
-# Car Variant Information Scraper
-
+# Indian Cars Buying Guide 
 ## Overview
 
 The Car Variant Information Scraper is a Python project designed to scrape car variant information from the CarDekho website. It consists of multiple Python files that work together to achieve the desired functionality. The project includes modules for scraping functions, database interactions, and configurations.
