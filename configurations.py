@@ -1,7 +1,7 @@
 from requests import get, request
 from bs4 import BeautifulSoup
 import time
-from time import time, sleep
+# from time import time, sleep
 import random
 import re
 import os
@@ -14,6 +14,8 @@ from itertools import islice
 import mysql.connector
 from rich.console import Console
 from rich.progress import Progress
+from rich import print
+from rich.progress import SpinnerColumn
 
 # Define a user agent for web scraping
 agent = {"User-Agent": 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}
@@ -34,3 +36,30 @@ all_brands = ['maruti-suzuki-cars', 'Maruti Suzuki', 'Maruti', 'Tata', 'Kia', 'T
 
 # Example usage:
 # all_brands = ['maruti-suzuki-cars', 'Tata']
+
+#function for mysql database
+def get_datbase_connection():
+    # Connect to MySQL
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="Pravin@1995",
+            database="car_dekho"  # Assuming your database name is car_dekho
+        )
+
+        cursor = connection.cursor()
+        return cursor,connection
+
+    except mysql.connector.Error as error:
+        print("Error while connecting to MySQL:", error)
+        # exit(1)
+        
+#function for sqlite database       
+# def get_database_connection():
+#     try:
+#         connection = sqlite3.connect('car_dekho.db')
+#         cursor = connection.cursor()
+#         return cursor, connection
+#     except sqlite3.Error as error:
+#         print("Error while connecting to SQLite:", error)

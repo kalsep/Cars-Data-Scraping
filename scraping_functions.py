@@ -22,11 +22,9 @@ def scrap_brand_directory(url):
     for item in list_items:
         # Extract the brand name
         brand_name = item.find('span').text
-
         # Extract the image source URL
         href = item.find('a')['href']
         brand_directctory[brand_name] = base_url+href
-        
     return brand_directctory
 
 

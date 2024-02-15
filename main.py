@@ -22,7 +22,7 @@ def create_car_dekho_databse():
     print("Database Creationh completed")
 
 
-    models_directory = get_brand_models_url_from_database()
+    models_directory = get_brand_models_from_database()
     print("Starting Varinat scraper wizard")
     for idModel,model_name,model_url in models_directory:
        

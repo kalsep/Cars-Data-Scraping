@@ -35,10 +35,10 @@ CREATE TABLE IF NOT EXISTS `car_dekho`.`Models` (
   `idModels` INT NOT NULL AUTO_INCREMENT,
   `Model Name` VARCHAR(45) NOT NULL,
   `Model Url` VARCHAR(100) NOT NULL,
-  `Brand_idBrand` INT NOT NULL,
+  `idBrand` INT NOT NULL,
   PRIMARY KEY (`idModels`),
   CONSTRAINT `fk_Models_Brand`
-    FOREIGN KEY (`Brand_idBrand`)
+    FOREIGN KEY (`idBrand`)
     REFERENCES `car_dekho`.`Brand` (`idBrand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -52,10 +52,10 @@ CREATE TABLE IF NOT EXISTS `car_dekho`.`ModelVariant` (
   `idModelvariant` INT NOT NULL AUTO_INCREMENT,
   `Modelvariantname` TEXT NOT NULL,
   `ModelVarianturl` TEXT NOT NULL,
-  `Models_idModels` INT NOT NULL,
+  `idModels` INT NOT NULL,
   PRIMARY KEY (`idModelvariant`),
   CONSTRAINT `fk_Modelvariant_Models1`
-    FOREIGN KEY (`Models_idModels`)
+    FOREIGN KEY (`idModels`)
     REFERENCES `car_dekho`.`Models` (`idModels`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `car_dekho`.`PriceInformationDelhi` (
   `Others` INT NULL,
   `Optional` INT NULL,
   `On-Road Price` INT NOT NULL,
-  `Modelvariant_idModelvariant` INT NOT NULL,
+  `idModelvariant` INT NOT NULL,
   PRIMARY KEY (`idPriceInformation`),
   CONSTRAINT `fk_PriceInformation_Modelvariant1`
-    FOREIGN KEY (`Modelvariant_idModelvariant`)
+    FOREIGN KEY (`idModelvariant`)
     REFERENCES `car_dekho`.`ModelVariant` (`idModelvariant`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -99,10 +99,10 @@ CREATE TABLE IF NOT EXISTS `car_dekho`.`Key Specifications` (
   `Fuel Tank Capacity` VARCHAR(100) NULL,
   `No. of Cylinders` VARCHAR(100) NULL,
   `ARAI Mileage` VARCHAR(100) NULL,
-  `Modelvariant_idModelvariant` INT NOT NULL,
+  `idModelvariant` INT NOT NULL,
   PRIMARY KEY (`idSpecification`),
   CONSTRAINT `fk_features_Modelvariant1`
-    FOREIGN KEY (`Modelvariant_idModelvariant`)
+    FOREIGN KEY (`idModelvariant`)
     REFERENCES `car_dekho`.`ModelVariant` (`idModelvariant`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -127,10 +127,10 @@ CREATE TABLE IF NOT EXISTS `car_dekho`.`key Features` (
   `Passenger Airbag` VARCHAR(100) NULL,
   `Power Steering` VARCHAR(100) NULL,
   `Air Conditioner` VARCHAR(100) NULL,
-  `ModelVariant_idModelvariant` INT NOT NULL,
+  `idModelvariant` INT NOT NULL,
   PRIMARY KEY (`idFeatures`),
   CONSTRAINT `fk_key Features_ModelVariant1`
-    FOREIGN KEY (`ModelVariant_idModelvariant`)
+    FOREIGN KEY (`idModelvariant`)
     REFERENCES `car_dekho`.`ModelVariant` (`idModelvariant`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

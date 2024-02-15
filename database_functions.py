@@ -1,21 +1,6 @@
 from configurations import *
 
-def get_datbase_connection():
-    # Connect to MySQL
-    try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="Pravin@1995",
-            database="car_dekho"  # Assuming your database name is car_dekho
-        )
 
-        cursor = connection.cursor()
-        return cursor,connection
-
-    except mysql.connector.Error as error:
-        print("Error while connecting to MySQL:", error)
-        # exit(1)
 
 # Function to insert data into the Brand table
 def insert_brand(brand_dict):
@@ -25,7 +10,6 @@ def insert_brand(brand_dict):
             query = "INSERT INTO Brand (Brandname, `Brand Url`) VALUES (%s, %s)"
             cursor.execute(query, (brand, url))
             connection.commit()
-            # print(f"Data inserted successfully for brand: {brand}")
     except mysql.connector.Error as error:
         print("Error inserting data into Brand table:", error)
     finally:
@@ -42,20 +26,17 @@ def insert_brand_model(brand_model_directory):
         cursor,connection=get_datbase_connection()
         brands_url = get_brand_url_from_database()
         brand_foreign_key = {key:value for value,key in brands_url }
-        # print(brand_foreign_key)
         for model_name, model_url in brand_model_directory.items():
-                Brand_idBrand = None
+                idBrand = None
                 for brand_name in brand_foreign_key.keys():
                     # Check if the brand name is a prefix of the model name
                     if model_name.lower().startswith(brand_name.lower()):
-                        Brand_idBrand = brand_foreign_key[brand_name]
+                        idBrand = brand_foreign_key[brand_name]
                         break
-                # print(f"For {model_name}",Brand_idBrand)
-                query = "INSERT INTO Models (`Model Name`, `Model Url`,`Brand_idBrand`) VALUES (%s, %s,%s)"
-                # print(f"{model_name},{model_url},{Brand_idBrand}")
-                cursor.execute(query, (model_name, model_url,Brand_idBrand))
+                query = "INSERT INTO Models (`Model Name`, `Model Url`,`idBrand`) VALUES (%s, %s,%s)"
+                cursor.execute(query, (model_name, model_url,idBrand))
                 connection.commit() 
-                # print(f"Data inserted successfully for brand: {model_name}")
+                
     except mysql.connector.Error as error:
         print("Error inserting data into Brand table:", error)
     finally:
@@ -69,10 +50,10 @@ def insert_brand_model(brand_model_directory):
 def insert_model_variant(id_model,model_variant_list):
     try:
         cursor,connection=get_datbase_connection()
-        for each_varint in model_variant_list:
-            for model_variant_name, model_variant_url in each_varint.items():
+        for each_variant in model_variant_list:
+            for model_variant_name, model_variant_url in each_variant.items():
                     # print(f"For {model_name}",Brand_idBrand)
-                    query = "INSERT INTO ModelVariant (`Modelvariantname`, `ModelVarianturl`,`Models_idModels`) VALUES (%s, %s,%s)"
+                    query = "INSERT INTO ModelVariant (`Modelvariantname`, `ModelVarianturl`,`idModels`) VALUES (%s, %s,%s)"
                     # print(f"{model_variant_name},{model_variant_url},{id_model}")
                     cursor.execute(query, (model_variant_name, model_variant_url,id_model))
                     connection.commit() 
@@ -87,11 +68,11 @@ def insert_model_variant(id_model,model_variant_list):
             connection.close()
 
 # Function to insert data into the PriceInformationDelhi table
-def insert_price_information(price_info, modelvariant_id):
+def insert_price_information(price_info, idModelvariant):
     try:
         cursor,connection=get_datbase_connection()
-        query = "INSERT INTO PriceInformationDelhi(`Ex-showroom price`, RTO, Insurance,Others, Optional, `On-Road Price`, Modelvariant_idModelvariant) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(query, (price_info['Ex-Showroom Price'],price_info['RTO'], price_info['Insurance'],price_info['Others'] ,price_info['Optional'], price_info['On-Road Price'], modelvariant_id))
+        query = "INSERT INTO PriceInformationDelhi(`Ex-showroom price`, RTO, Insurance,Others, Optional, `On-Road Price`,idModelvariant) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(query, (price_info['Ex-Showroom Price'],price_info['RTO'], price_info['Insurance'],price_info['Others'] ,price_info['Optional'], price_info['On-Road Price'], idModelvariant))
         connection.commit()
         print(f"Inserted Data For {price_info['Model']}")
     except Exception as e:
@@ -111,8 +92,7 @@ def insert_key_specifications(key_specification_info,idModelvariant):
         cursor.execute("SHOW COLUMNS FROM `" + table_name + "` WHERE Field != 'idFeatures'")
         # Fetch all column names
         columns = [column[0] for column in cursor.fetchall()]
-        columns.remove('Modelvariant_idModelvariant')
-        # print("Columns Names: \n",columns)
+        columns.remove('idModelvariant')
 
         # Filter feature_info dictionary to only include keys that are columns in the database
         filtered_feature_info = {key: value for key, value in key_specification_info.items() if key in columns}
@@ -123,11 +103,10 @@ def insert_key_specifications(key_specification_info,idModelvariant):
 
         # Update data_to_insert with values from feature_info
         data_to_insert.update(filtered_feature_info)
-        # print("Data To Insert:\n",data_to_insert)
 
         # Insert data into the database
-        columns_str = ', '.join([f"`{col}`" for col in data_to_insert.keys()]) + ', ModelVariant_idModelvariant'
-        values_str = ', '.join(['%s'] * (len(data_to_insert) + 1))  # +1 for ModelVariant_idModelvariant
+        columns_str = ', '.join([f"`{col}`" for col in data_to_insert.keys()]) + ', idModelvariant'
+        values_str = ', '.join(['%s'] * (len(data_to_insert) + 1))  # +1 for idModelvariant
         insert_query = f"INSERT INTO `{table_name}` ({columns_str}) VALUES ({values_str})"
         data_values = tuple(list(data_to_insert.values()) + [idModelvariant])  # Add model_variant_id to the tuple
         # print("Data Values:\n",data_values)
@@ -144,15 +123,14 @@ def insert_key_specifications(key_specification_info,idModelvariant):
             connection.close()
 
 
-def insert_into_key_features(key_feature_info, model_variant_id):
+def insert_into_key_features(key_feature_info, idModelvariant):
     try:
         cursor,connection=get_datbase_connection()
         table_name = 'Key Features'
         cursor.execute("SHOW COLUMNS FROM `" + table_name + "` WHERE Field != 'idFeatures'")
         # Fetch all column names
         columns = [column[0] for column in cursor.fetchall()]
-        columns.remove('ModelVariant_idModelvariant')
-        print("Columns Names: \n",columns)
+        columns.remove('idModelvariant')
 
         # Filter feature_info dictionary to only include keys that are columns in the database
         filtered_feature_info = {key: value for key, value in key_feature_info.items() if key in columns}
@@ -163,16 +141,16 @@ def insert_into_key_features(key_feature_info, model_variant_id):
 
         # Update data_to_insert with values from feature_info
         data_to_insert.update(filtered_feature_info)
-        print("Data To Insert:\n",data_to_insert)
-
+        
         # Insert data into the database
-        columns_str = ', '.join([f"`{col}`" for col in data_to_insert.keys()]) + ', ModelVariant_idModelvariant'
-        values_str = ', '.join(['%s'] * (len(data_to_insert) + 1))  # +1 for ModelVariant_idModelvariant
+        columns_str = ', '.join([f"`{col}`" for col in data_to_insert.keys()]) + ', idModelvariant'
+        values_str = ', '.join(['%s'] * (len(data_to_insert) + 1))  # +1 for idModelvariant
         insert_query = f"INSERT INTO `{table_name}` ({columns_str}) VALUES ({values_str})"
-        data_values = tuple(list(data_to_insert.values()) + [model_variant_id])  # Add model_variant_id to the tuple
-        # print("Data Values:\n",data_values)
+        data_values = tuple(list(data_to_insert.values()) + [idModelvariant])  # Add model_variant_id to the tuple
         cursor.execute(insert_query, data_values)
         connection.commit()
+        print(f"Data inserted {idModelvariant}")
+        
     except Exception as e:
             print(e)
     finally:
@@ -199,10 +177,9 @@ def get_brand_url_from_database():
             if 'connection' in locals() and connection.is_connected():
                 connection.close()
 
-def get_brand_models_url_from_database():
+def get_brand_models_from_database():
     try:
         cursor,connection=get_datbase_connection()
-            # Execute SELECT statement to fetch data from the Brand table
         cursor.execute("SELECT idModels,`Model Name`,`Model Url` FROM models")
         all_brand_models = cursor.fetchall()
         return all_brand_models
@@ -249,3 +226,9 @@ def get_column_names_from_database(cursor, table_name):
     columns = cursor.fetchall()
     column_names = [column[0] for column in columns]
     return column_names
+
+def get_varinat_count():
+    curor,connection = get_datbase_connection()
+    curor.execute("select count(*) from modelvariant;")
+    count = curor.fetchone()
+    return count
