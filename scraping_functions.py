@@ -8,7 +8,7 @@ def get_soup(url='https://www.cardekho.com'):
     return soup
 
 
-#completed
+#This function scrapes brand directory
 def scrap_brand_directory(url):
     soup = get_soup(url)
     main_section = soup.find('main', class_='gsc_container newcarsLanding')
@@ -30,7 +30,7 @@ def scrap_brand_directory(url):
     return brand_directctory
 
 
- #completed
+ #Scrapes models name and url
 def scrap_model_urls(url): #https://www.cardekho.com/maruti-suzuki-cars
     try:
         # print(f"inside get models for {url}")

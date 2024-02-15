@@ -1,47 +1,42 @@
-from rich.console import Console
 from configurations import *
 from scraping_functions import *
 from database_functions import *
 
-def create_car_dekho_database():
-    console = Console()
-    
-    with console.status("[bold green]Scraping brand directory..."):
-        brand_url_directory = scrap_brand_directory("https://www.cardekho.com/newcars")
+def create_brand_model_table():
+    brand_url_directory = scrap_brand_directory(start_url)
+    insert_brand(brand_url_directory)
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Scraping Brand Models...", total=len(brand_url_directory))
+        for brand, brand_url in brand_url_directory.items():
+            brand_model_directory = scrap_model_urls(brand_url)
+            insert_brand_model(brand_model_directory)
+            progress.update(task, advance=1)
 
-    with console.status("[bold green]Inserting brand data into the database..."):
-        insert_brand(brand_url_directory)
-
-    with console.status("[bold green]Scraping model URLs..."):
-        brand_model_directory = {}
-        for brand, url in brand_url_directory.items():
-            brand_model_directory.update(scrap_model_urls(url))
-
-    with console.status("[bold green]Inserting model data into the database..."):
-        insert_brand_model(brand_model_directory)
-
-    with console.status("[bold green]Scraping model variant URLs..."):
-        for brand, model_url in brand_model_directory.items():
+def create_variant_table():
+    models_directory = get_brand_models_url_from_database()
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Scraping Model Variants...", total=len(models_directory))
+        for idModel, model_name, model_url in models_directory:
             model_variant_directory = scrap_model_variant_url(model_url)
-            for model_name, model_url in model_variant_directory.items():
-                model_id = get_model_id(model_name)
-                insert_model_variant(model_id, model_variant_directory[model_name])
+            insert_model_variant(idModel, model_variant_directory)
+            progress.update(task, advance=1)
 
-    with console.status("[bold green]Scraping price, key specifications, and key features..."):
-        for model_id, model_name, model_url in get_brand_models_url():
-            variant_info = scrap_model_variant_url(model_url)
-            for variant_name, variant_url in variant_info.items():
-                console.print(f"Processing {variant_name} of {model_name}...", style="bold cyan")
-                price_info = scrap_on_road_price_delhi(variant_url)
-                insert_price_information(price_info, model_id)
+def scrape_variant_information():
+    variant_directory = get_model_variant_url_from_database()
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Scraping Variant Information...", total=len(variant_directory))
+        for idModelvariant, Modelvariantname, ModelVarianturl in variant_directory:
+            price_info = scrap_on_road_price_delhi(ModelVarianturl)
+            insert_price_information(price_info, idModelvariant)
 
-                key_specifications_info = scrap_key_specifications(variant_url)
-                insert_key_specifications(key_specifications_info, model_id)
+            key_specification_info = scrap_key_specifications(ModelVarianturl)
+            insert_key_specifications(key_specification_info, idModelvariant)
 
-                key_features_info = scrap_key_features(variant_url)
-                insert_into_key_features(key_features_info, model_id)
-
-    console.print("[bold green]Database creation completed!")
+            key_feature_info = scrap_key_features(ModelVarianturl)
+            insert_into_key_features(key_feature_info, idModelvariant)
+            progress.update(task, advance=1)
 
 if __name__ == "__main__":
-    create_car_dekho_database()
+    create_brand_model_table()
+    create_variant_table()
+    scrape_variant_information()

@@ -1,5 +1,22 @@
 from configurations import *
 
+def get_datbase_connection():
+    # Connect to MySQL
+    try:
+        connection = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="Pravin@1995",
+            database="car_dekho"  # Assuming your database name is car_dekho
+        )
+
+        cursor = connection.cursor()
+        return cursor,connection
+
+    except mysql.connector.Error as error:
+        print("Error while connecting to MySQL:", error)
+        # exit(1)
+
 # Function to insert data into the Brand table
 def insert_brand(brand_dict):
     try:
@@ -23,7 +40,7 @@ def insert_brand(brand_dict):
 def insert_brand_model(brand_model_directory):
     try:
         cursor,connection=get_datbase_connection()
-        brands_url = get_brand_url()
+        brands_url = get_brand_url_from_database()
         brand_foreign_key = {key:value for value,key in brands_url }
         # print(brand_foreign_key)
         for model_name, model_url in brand_model_directory.items():
@@ -165,7 +182,7 @@ def insert_into_key_features(key_feature_info, model_variant_id):
         if 'connection' in locals() and connection.is_connected():
             connection.close()
 
-def get_brand_url():
+def get_brand_url_from_database():
         try:
             cursor,connection=get_datbase_connection()
             # Execute SELECT statement to fetch data from the Brand table
@@ -182,7 +199,7 @@ def get_brand_url():
             if 'connection' in locals() and connection.is_connected():
                 connection.close()
 
-def get_brand_models_url():
+def get_brand_models_url_from_database():
     try:
         cursor,connection=get_datbase_connection()
             # Execute SELECT statement to fetch data from the Brand table
@@ -203,7 +220,7 @@ def get_brand_models_url():
         if 'connection' in locals() and connection.is_connected():
             connection.close()
             
-def get_model_variant_url():
+def get_model_variant_url_from_database():
     try:
         cursor,connection=get_datbase_connection()
             # Execute SELECT statement to fetch data from the Brand table
@@ -226,7 +243,7 @@ def get_model_variant_url():
             connection.close()
 
 
-def get_column_names(cursor, table_name):
+def get_column_names_from_database(cursor, table_name):
     cursor,connection=get_datbase_connection()
     cursor.execute(f"DESCRIBE {table_name}")
     columns = cursor.fetchall()

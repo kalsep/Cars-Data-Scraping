@@ -1,3 +1,4 @@
+from rich.console import Console
 from configurations import *
 from scraping_functions import *
 from database_functions import *
@@ -20,21 +21,19 @@ def create_car_dekho_databse():
         insert_brand_model(brand_model_directory)
     print("Database Creationh completed")
 
-    # get_brand_models_url()
-    # print(get_brand_models_url())
-    models_directory = get_brand_models_url()
+
+    models_directory = get_brand_models_url_from_database()
     print("Starting Varinat scraper wizard")
     for idModel,model_name,model_url in models_directory:
-        # print("Model id: ",idModel,"Model Name :",model_name,"model Url",model_url)
-        # print("+"*10,model_name,idModel,)
+       
         model_variant_directory = scrap_model_variant_url(model_url)
         insert_model_variant(idModel, model_variant_directory)
-        # print(model_variant_directory)
+
     print("WIzard Completed Database Creation\n")
 
     print("Major Updated Coming On th way..")
 
-    varinat_directory = get_model_variant_url()
+    varinat_directory = get_model_variant_url_from_database()
     # varinat_directory_temp = varinat_directory[:1]
     print("Creating Key Feature,Price,key Specifications Table\n")
     for idModelvariant,Modelvariantname,ModelVarianturl in varinat_directory:
