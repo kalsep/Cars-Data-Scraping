@@ -61,6 +61,9 @@ The project depends on the following Python libraries:
 
 Contributions to this project are welcome. Feel free to open issues or submit pull requests to enhance its functionality or address any issues.
 
+#### Further Scope
+Reduct the time to run the script
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
