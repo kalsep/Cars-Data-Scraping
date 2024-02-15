@@ -1,5 +1,3 @@
-Certainly! Below is the master README.md file that integrates information from all the provided files:
-
 ---
 
 # Car Variant Information Scraper
