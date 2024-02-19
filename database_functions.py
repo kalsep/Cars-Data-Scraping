@@ -68,9 +68,9 @@ def insert_model_variant(id_model,model_variant_list):
             connection.close()
 
 # Function to insert data into the PriceInformationDelhi table
-def insert_price_information(price_info, idModelvariant):
+def insert_price_information(price_info, idModelvariant,cursor,connection):
     try:
-        cursor,connection=get_datbase_connection()
+        
         query = "INSERT INTO PriceInformationDelhi(`Ex-showroom price`, RTO, Insurance,Others, Optional, `On-Road Price`,idModelvariant) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cursor.execute(query, (price_info['Ex-Showroom Price'],price_info['RTO'], price_info['Insurance'],price_info['Others'] ,price_info['Optional'], price_info['On-Road Price'], idModelvariant))
         connection.commit()
@@ -85,9 +85,8 @@ def insert_price_information(price_info, idModelvariant):
             connection.close()
 
 # Function to insert data into the Key Specifications table
-def insert_key_specifications(key_specification_info,idModelvariant):
+def insert_key_specifications(key_specification_info,idModelvariant,cursor,connection):
     try:
-        cursor,connection=get_datbase_connection()
         table_name = 'Key Specifications'
         cursor.execute("SHOW COLUMNS FROM `" + table_name + "` WHERE Field != 'idFeatures'")
         # Fetch all column names
@@ -123,7 +122,7 @@ def insert_key_specifications(key_specification_info,idModelvariant):
             connection.close()
 
 
-def insert_into_key_features(key_feature_info, idModelvariant):
+def insert_into_key_features(key_feature_info, idModelvariant, cursor,connection):
     try:
         cursor,connection=get_datbase_connection()
         table_name = 'Key Features'

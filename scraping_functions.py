@@ -87,11 +87,8 @@ def scrap_model_variant_url(model_page_url):
         return None
 
 #this function return price breakup for delhi city by default
-def scrap_on_road_price_delhi(variant_page_url)-> dict:
+def scrap_on_road_price_delhi(variant_page_url, soup)-> dict:
     try:
-        # Parse the HTML content using BeautifulSoup
-        soup = get_soup(variant_page_url)
-
         # Find the section with on-road price details
         on_road_price_section = soup.find('section', {'id': 'OnRoadPrice'})
 
@@ -174,8 +171,7 @@ def process_on_road_price(price_info):
     print("processed_price_info:",processed_price_info)
     return processed_price_info
 
-def scrap_key_specifications(url)->dict:
-    soup = get_soup(url)
+def scrap_key_specifications(url, soup)->dict:
     pre_model = soup.find('main', class_="gsc_container")
     content = pre_model.find('section',class_='specsAllLists')
     try:
@@ -201,8 +197,9 @@ def scrap_key_specifications(url)->dict:
     
 
 #Get each variant info
-def scrap_key_features(variant_url)->dict:
-    soup = get_soup(variant_url)
+def scrap_key_features(variant_url, soup)->dict:
+    
+    #Extract Content
     pre_model = soup.find('main', class_="gsc_container")
     content = pre_model.find('section',class_='specsAllLists')
     try:

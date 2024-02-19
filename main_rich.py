@@ -2,6 +2,7 @@ from configurations import *
 from scraping_functions import *
 from database_functions import *
 
+
 def create_brand_model_table():
     brand_url_directory = scrap_brand_directory(start_url)
     insert_brand(brand_url_directory)
@@ -31,34 +32,26 @@ def create_variant_table():
 
 def scrape_and_create_variant_information_table():
     variant_directory = get_model_variant_url_from_database()
+    cursor,connection=get_datbase_connection()
     with Progress() as progress:
         task_scraping = progress.add_task("[cyan]Scraping Variant Information...", total=len(variant_directory))
 
         for idModelvariant, Modelvariantname, ModelVarianturl in variant_directory:
             try:
-                # Create a nested progress bar for each model variant
-                # with Progress() as nested_progress:
-                #     task_price = nested_progress.add_task(f"[yellow]Scraping & Updating Price Information for {Modelvariantname}...", total=1)
-                #     task_specs = nested_progress.add_task(f"[yellow]Scraping & Updating Key Specifications for {Modelvariantname}...", total=1)
-                #     task_features = nested_progress.add_task(f"[yellow]Scraping & Updating Key Features for {Modelvariantname}...", total=1)
-
+                # Parse the HTML content using BeautifulSoup
+                soup = get_soup(ModelVarianturl)
+            
                 # Scraping price information
-                price_info = scrap_on_road_price_delhi(ModelVarianturl)
-                insert_price_information(price_info, idModelvariant)
-                # nested_progress.update(task_price, advance=1)
+                price_info = scrap_on_road_price_delhi(ModelVarianturl, soup)
+                insert_price_information(price_info, idModelvariant,cursor,connection)
 
                 # Scraping key specifications
-                key_specification_info = scrap_key_specifications(ModelVarianturl)
-                insert_key_specifications(key_specification_info, idModelvariant)
-                # nested_progress.update(task_specs, advance=1)
+                key_specification_info = scrap_key_specifications(ModelVarianturl,soup)
+                insert_key_specifications(key_specification_info, idModelvariant,cursor,connection)
 
                 # Scraping key features
-                key_feature_info = scrap_key_features(ModelVarianturl)
-                insert_into_key_features(key_feature_info, idModelvariant)
-                # nested_progress.update(task_features, advance=1)
-
-                # # Update the outer progress bar after completing each model variant
-                # progress.update(task_scraping, advance=1)
+                key_feature_info = scrap_key_features(ModelVarianturl,soup)
+                insert_into_key_features(key_feature_info, idModelvariant,cursor,connection)
             
             except Exception as e:
                 print(f"Error processing {Modelvariantname}: {str(e)}")
@@ -69,8 +62,8 @@ def scrape_and_create_variant_information_table():
 
 
 if __name__ == "__main__":
+    cursor,connection=get_datbase_connection()
     console = Console()
-
     # Check if the brand and model table exists
     with console.status("[bold green]Checking Brand & Model Table exist in the database") as status:
         spinner = SpinnerColumn()

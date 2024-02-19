@@ -34,9 +34,6 @@ all_brands = ['maruti-suzuki-cars', 'Maruti Suzuki', 'Maruti', 'Tata', 'Kia', 'T
               'Lamborghini', 'Land Rover', 'Lexus', 'Lotus', 'Maserati', 'Mclaren', 'Mercedes-Benz',
               'Mini', 'PMV', 'Porsche', 'Pravaig', 'Rolls-Royce', 'Strom Motors', 'Volvo']
 
-# Example usage:
-# all_brands = ['maruti-suzuki-cars', 'Tata']
-
 #function for mysql database
 def get_datbase_connection():
     # Connect to MySQL
